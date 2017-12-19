@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BucketsOfGoogle</string>
+
+    <string name="dialog_permission_ok_notifyTitle">提示</string>
+    <string name="dialog_permission_ok_notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="dialog_permission_ok_setting">设置</string>
+    <string name="dialog_permission_ok_cancel">取消</string>
+
+    <string name="dialog_update_notifyMsg">新版本</string>
+    <string name="dialog_update_cancel">取消</string>
+    <string name="dialog_update_setting">确定</string>
+</resources>

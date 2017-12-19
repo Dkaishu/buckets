@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="dark30">#FCFCFC</color>
+    <color name="dark_100">#F6F6F6</color>
+    <color name="dark_200">#CDCBCB</color>
+    <color name="dark_400">#909090</color>
+    <color name="dark_600">#525252</color>
+
+
+    <color name="tr_dark_blue">#aa0296c3</color>
+    <color name="tr_dark_100">#aaF6F6F6</color>
+    <color name="tr_dark_200">#aaCDCBCB</color>
+    <color name="tr_dark_400">#aa909090</color>
+    <color name="tr_dark_600">#aa525252</color>
+</resources>

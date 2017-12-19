@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.jakewharton.butterknife'
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.dkaishu.bucketsofgoogle"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                includeCompileClasspath = true
+//            }
+//        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+ /*   //用于生成不同编译类型的包，如debug和release包
+    buildTypes {
+        release {
+//            storeFile file("../yourapp.keystore") //签名证书文件
+//            storePassword "your password"         //签名证书密码
+//            keyAlias "your alias"                 //别名
+//            keyPassword "your password"           //别名密码
+            buildConfigField "boolean", "SHOWLOG", "false"//在 BuildConfig 中会自动生成相应变量
+            minifyEnabled true                               //开启混淆
+            zipAlignEnabled true                             //开启Zipalign优化
+            shrinkResources true                             //移除无用的resource文件，此项只有在开启混淆时才生效
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release             //使用release证书签名
+
+            applicationVariants.all { variant ->
+                if (variant.buildType.name.equals('release')) {
+                    variant.outputs.each { output ->
+                        def outputFile = output.outputFile
+                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
+                            def fileName = "${defaultConfig.versionCode}.apk"
+                            output.outputFile = new File(outputFile.parent+"/", fileName)
+                        }
+                    }
+                }
+            }
+
+        }
+        debug {
+            buildConfigField "boolean", "SHOWLOG", "true"       //配置日志开关
+//            versionNameSuffix "-debug"                          //包名后缀为“-debug”
+            zipAlignEnabled false                            //Zipalign优化
+            shrinkResources false                            // 移除无用的resource文件
+            minifyEnabled false                                 //是否混淆
+//            signingConfig signingConfigs.debug               //使用debug证书签名
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                if (variant.buildType.name.equals('debug')) {
+                    variant.outputs.each { output ->
+                        def outputFile = output.outputFile
+                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
+                            def fileName = "${defaultConfig.versionCode}_debug.apk"
+                            output.outputFile = new File(outputFile.parent +"/", fileName)
+                        }
+                    }
+                }
+            }
+        }
+    }*/
+}
+
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.github.Dkaishu:okhttp3:v1.0.0'
+    compile 'com.github.Dkaishu:ScrollTextView:V1.2.0'
+//    compile 'org.greenrobot:greendao:3.2.2'
+
+}
+
