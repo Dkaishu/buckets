@@ -8,9 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dkaishu.bucketsofgoogle.R;
 import com.dkaishu.bucketsofgoogle.main.bean.Bucket;
+import com.dkaishu.bucketsofgoogle.utils.LogUtil;
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.annotation.DownloadStatus;
+import com.okhttplib.bean.DownloadFileInfo;
+import com.okhttplib.callback.ProgressCallback;
 
 import java.util.List;
 
@@ -19,6 +26,7 @@ import java.util.List;
  */
 
 public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = "BucketAdapter";
     private List<Bucket.App> list;
     private Context mContext;
 
@@ -34,8 +42,32 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final VH vh = (VH) holder;
+        vh.contentTv.setText(list.get(position).getTitle());
+        vh.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vh.fileInfo == null) {
+                    download(vh.fileInfo, list.get(position).getApkURL(), list.get(position).getApkName()
+                            , new onDownloadProgress() {
+                                @Override
+                                public void onProgress(int percent) {
+                                    vh.downloadProgress.setProgress(percent);
+                                }
+                            });
+                } else {
+                    if (vh.fileInfo.getDownloadStatus().equals(DownloadStatus.COMPLETED)) return;
+                    if (vh.fileInfo.getDownloadStatus().equals(DownloadStatus.DOWNLOADING))
+                        vh.fileInfo.setDownloadStatus(DownloadStatus.PAUSE);
+                    if (vh.fileInfo.getDownloadStatus().equals(DownloadStatus.PAUSE))
+                        vh.fileInfo.setDownloadStatus(DownloadStatus.DOWNLOADING);
 
+                    HttpInfo info = HttpInfo.Builder().addDownloadFile(vh.fileInfo).build();
+                    OkHttpUtil.Builder().setReadTimeout(120).build(this).doDownloadFileAsync(info);
+                }
+            }
+        });
     }
 
     @Override
@@ -47,6 +79,7 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView iv;
         TextView contentTv;
         ProgressBar downloadProgress;
+        DownloadFileInfo fileInfo;
 
         public VH(View itemView) {
             super(itemView);
@@ -54,5 +87,32 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             contentTv = itemView.findViewById(R.id.tv_content);
             downloadProgress = itemView.findViewById(R.id.downloadProgress);
         }
+    }
+
+
+    private void download(DownloadFileInfo fileInfo, String url, String saveFileName, final onDownloadProgress listerner) {
+        if (null == fileInfo)
+            fileInfo = new DownloadFileInfo(url, saveFileName, new ProgressCallback() {
+                @Override
+                public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
+                    listerner.onProgress(percent);
+                    LogUtil.d(TAG, "下载进度：" + percent);
+                }
+
+                @Override
+                public void onResponseMain(String filePath, HttpInfo info) {
+                    if (info.isSuccessful()) {
+//                        tvResult.setText(info.getRetDetail()+"\n下载状态："+fileInfo.getDownloadStatus());
+                    } else {
+                        Toast.makeText(mContext, info.getRetDetail(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        HttpInfo info = HttpInfo.Builder().addDownloadFile(fileInfo).build();
+        OkHttpUtil.Builder().setReadTimeout(120).build(this).doDownloadFileAsync(info);
+    }
+
+    public interface onDownloadProgress {
+        void onProgress(int percent);
     }
 }

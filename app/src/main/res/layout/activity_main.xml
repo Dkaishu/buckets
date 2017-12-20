@@ -56,6 +56,7 @@
         scroll_text:singleLine="true"
         scroll_text:textColor="@android:color/black"
         scroll_text:textSize="14sp"
+        android:layout_marginBottom="26dp"
         />
 
     <android.support.v4.widget.SwipeRefreshLayout

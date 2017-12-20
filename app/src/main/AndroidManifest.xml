@@ -32,6 +32,17 @@
         <service android:name="com.dkaishu.bucketsofgoogle.update.DownloadService" />
         <service android:name=".update.VersionUpdateService" />
 
+
+        <receiver android:name=".main.Broadcast.AppInstallReceiver"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
         <provider
             android:name=".widget.file_provider.VersionUpdateFileProvider"
             android:authorities="com.dkaishu.bucketsofgoogle.fileprovider"

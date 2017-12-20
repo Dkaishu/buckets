@@ -100,7 +100,7 @@ public class NetworkUtil {
             return NetInfo.NONE_NET;
         }
         if (network.getType() == ConnectivityManager.TYPE_MOBILE) {
-            return network.getExtraInfo().equalsIgnoreCase("cmnet") ? NetInfo.CM_NET : NetInfo.CM_WAP;
+            return NetInfo.MOBILE;
         } else if (network.getType() == ConnectivityManager.TYPE_WIFI) {
             return NetInfo.WIFI;
         }

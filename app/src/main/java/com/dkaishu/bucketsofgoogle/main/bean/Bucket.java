@@ -48,7 +48,16 @@ public class Bucket {
         private String title;
         private String content;
         private String apkURL;
+        private String apkName;
         private String imageUrl;
+
+        public String getApkName() {
+            return apkName;
+        }
+
+        public void setApkName(String apkName) {
+            this.apkName = apkName;
+        }
 
         public String getTitle() {
             return title;

@@ -9,6 +9,7 @@ public class NetInfo {
     public String networkType;
 
     public static final String WIFI = "WIFI";//热点网络
+    public static final String MOBILE = "MOBILE";//移动网络
     public static final String CM_NET = "CMNET";//移动网络
     public static final String CM_WAP = "CMWAP";//移动网络
     public static final String NONE_NET = "NONENET";//无网络

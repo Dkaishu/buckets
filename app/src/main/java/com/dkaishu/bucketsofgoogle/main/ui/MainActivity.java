@@ -3,15 +3,18 @@ package com.dkaishu.bucketsofgoogle.main.ui;
 import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.dkaishu.bucketsofgoogle.R;
 import com.dkaishu.bucketsofgoogle.base.BaseActivity;
 import com.dkaishu.bucketsofgoogle.main.adapter.BucketAdapter;
 import com.dkaishu.bucketsofgoogle.main.bean.Bucket;
+import com.dkaishu.bucketsofgoogle.main.main.BucketUtils;
 import com.dkaishu.bucketsofgoogle.utils.LogUtil;
+import com.dkaishu.bucketsofgoogle.utils.ToastUtils;
 import com.dkaishu.scrolltextview.ScrollTextView;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
@@ -24,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @BindView(R.id.rv_image_flow)
     RecyclerView rvImageFlow;
@@ -38,6 +41,8 @@ public class MainActivity extends BaseActivity {
     private List<Bucket.Tip> tips = new ArrayList<>();
     private BucketAdapter adapter;
     private Bucket.VersionInfo versionInfo;
+    private List<ScrollTextView.OnScrollClickListener> listeners = new ArrayList<>();
+    private int mSpanCount = 4;
 
 
     @Override
@@ -49,16 +54,17 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         adapter = new BucketAdapter(this, apps);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        rvImageFlow.setLayoutManager(mLayoutManager);
+        rvImageFlow.setLayoutManager(new GridLayoutManager(getApplicationContext(), mSpanCount));
+        rvImageFlow.addItemDecoration(new GridSpacingItemDecoration(mSpanCount, 10, true));
         rvImageFlow.setAdapter(adapter);
-        query();
+        queryBucketInfo();
 
     }
 
-    String url = "";
 
-    private void query() {
+    private void queryBucketInfo() {
+        String baseUrl = "http://p18i0dv0b.bkt.clouddn.com/info/buckets.txt";
+        String url = BucketUtils.getURL(baseUrl);
         srlImageFlow.setRefreshing(true);
         OkHttpUtil.getDefault(this).doGetAsync(
                 HttpInfo.Builder().setUrl(url).build(),
@@ -67,14 +73,17 @@ public class MainActivity extends BaseActivity {
                     public void onFailure(HttpInfo info) throws IOException {
                         srlImageFlow.setRefreshing(false);
                         String result = info.getRetDetail();
+                        ToastUtils.showLong(result);
                         LogUtil.e("ParamForm: " + info.getParamForm() + "\n" + "RetDetail" + result);
                     }
 
                     @Override
                     public void onSuccess(HttpInfo info) throws IOException {
                         srlImageFlow.setRefreshing(false);
+                        srlImageFlow.setEnabled(false);
                         String result = info.getRetDetail();
-                        //GSon解析
+                        LogUtil.e("ParamForm: " + info.getParamForm() + "\n" + "RetDetail" + result);
+
                         Bucket bucket = info.getRetDetail(Bucket.class);
                         apps.clear();
                         apps.addAll(bucket.getApps());
@@ -83,18 +92,34 @@ public class MainActivity extends BaseActivity {
                         versionInfo = bucket.getVersionInfo();
                         setTipContent();
                         adapter.notifyDataSetChanged();
+
+                        checkUpdateInfo();
                     }
                 });
+    }
+
+    private void checkUpdateInfo() {
+
     }
 
 
     private void setTipContent() {
         for (int i = 0; i < tips.size(); i++) {
             textList.add(tips.get(i).getTipString());
+            listeners.add(new ScrollTextView.OnScrollClickListener() {
+                @Override
+                public void onClick() {
+                }
+            });
         }
         stvTip.setScrollTime(500);//ms
         stvTip.setSpanTime(10000);//ms
-        stvTip.setTextContent(textList);
+        stvTip.setTextContent(textList, listeners);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
     static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
