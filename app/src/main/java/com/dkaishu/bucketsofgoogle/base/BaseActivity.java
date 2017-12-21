@@ -24,6 +24,7 @@ import com.dkaishu.bucketsofgoogle.update.DownloadService;
 import com.dkaishu.bucketsofgoogle.utils.LogUtil;
 import com.dkaishu.bucketsofgoogle.utils.NetworkUtil;
 import com.dkaishu.bucketsofgoogle.utils.PrefUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 
@@ -58,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isNeedCheckPermission) {
             PermissionsChecker.checkPermissions(this, PERMISSION_REQUEST_CODE, PermissionConfig.permissions);
         }
+        MobclickAgent.onResume(this);
 
     }
 
@@ -70,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+        MobclickAgent.onPause(this);
     }
 
     @Override

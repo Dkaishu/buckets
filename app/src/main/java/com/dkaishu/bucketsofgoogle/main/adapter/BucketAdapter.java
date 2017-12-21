@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.dkaishu.bucketsofgoogle.R;
 import com.dkaishu.bucketsofgoogle.main.bean.Bucket;
+import com.dkaishu.bucketsofgoogle.main.main.BucketUtils;
 import com.dkaishu.bucketsofgoogle.utils.LogUtil;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
@@ -29,6 +30,7 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final String TAG = "BucketAdapter";
     private List<Bucket.App> list;
     private Context mContext;
+    private String serverURL = "http://p18i0dv0b.bkt.clouddn.com/app/";
 
     public BucketAdapter(Context mContext, List<Bucket.App> list) {
         this.list = list;
@@ -48,8 +50,9 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         vh.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String apkURL = BucketUtils.getURL(serverURL+ list.get(position).getApkURL());
                 if (vh.fileInfo == null) {
-                    download(vh.fileInfo, list.get(position).getApkURL(), list.get(position).getApkName()
+                    download(vh.fileInfo,apkURL, list.get(position).getApkName()
                             , new onDownloadProgress() {
                                 @Override
                                 public void onProgress(int percent) {

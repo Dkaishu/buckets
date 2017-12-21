@@ -18,7 +18,7 @@ public class BucketUtils {
     public static String getURL(String baseUrl) {
 //        String baseUrl = "http://p18i0dv0b.bkt.clouddn.com/info/new%201.txt";
 
-        long expires = 300;
+        long expires = 3000;
 
         long deadline = System.currentTimeMillis() / 1000 + expires;
 

@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private BucketAdapter adapter;
     private Bucket.VersionInfo versionInfo;
     private List<ScrollTextView.OnScrollClickListener> listeners = new ArrayList<>();
-    private int mSpanCount = 4;
+    private int mSpanCount = 3;
 
 
     @Override

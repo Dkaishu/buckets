@@ -87,6 +87,7 @@ dependencies {
     compile 'com.github.Dkaishu:okhttp3:v1.0.0'
     compile 'com.github.Dkaishu:ScrollTextView:V1.2.0'
 //    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 
 }
 
