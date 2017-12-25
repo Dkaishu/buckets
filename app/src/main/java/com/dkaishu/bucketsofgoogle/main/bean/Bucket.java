@@ -1,7 +1,10 @@
 package com.dkaishu.bucketsofgoogle.main.bean;
 
+import android.support.annotation.Keep;
+
 import java.util.List;
 
+@Keep
 public class Bucket {
     private List<Tip> tips;
     private List<App> apps;
@@ -30,7 +33,7 @@ public class Bucket {
     public void setVersionInfo(VersionInfo versionInfo) {
         this.versionInfo = versionInfo;
     }
-
+    @Keep
     public static class Tip {
         String tipString;
 
@@ -43,13 +46,22 @@ public class Bucket {
         }
     }
 
-
+    @Keep
     public static class App{
         private String title;
         private String content;
         private String apkURL;
         private String apkName;
+        private String pkg;
         private String imageUrl;
+
+        public String getPkg() {
+            return pkg;
+        }
+
+        public void setPkg(String pkg) {
+            this.pkg = pkg;
+        }
 
         public String getApkName() {
             return apkName;

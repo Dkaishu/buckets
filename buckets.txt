@@ -10,102 +10,119 @@
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Gmail_v7.11.26.179049568.release_apkpure.com",
 		"apkName": "AndroidSystemWebView.apk",
+		"pkg": "com.google.android.webview",
 		"imageUrl": ""
 	},{
 		"title": "Google Street",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Street View_v2.0.0.178033767_apkpure.com.apk",
 		"apkName": "GoogleStreet.apk",
+		"pkg": "com.google.android.street",
 		"imageUrl": ""
 	},{
 		"title": "Google TalkBack",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google TalkBack_v5.2.1_apkpure.com.apk",
 		"apkName": "GoogleTalkBack.apk",
+		"pkg": "com.google.android.marvin.talkback",
 		"imageUrl": ""
 	},{
 		"title": "Google Chrome",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Chrome Fast Secure_v63.0.3239.111_apkpure.com.apk",
 		"apkName": "GoogleChrome.apk",
+		"pkg": "com.android.chrome",
 		"imageUrl": ""
 	},{
 		"title": "Google APP",
 		"content": "Gmail_v7.11.26.179049568.release_apkpure.com.apk",
 		"apkURL": "Google_v9.23.0.171985778_apkpure.com.apk",
 		"apkName": "GoogleAPP.apk",
+		"pkg": "com.google.android.googlequicksearchbox",
 		"imageUrl": ""
 	},{
 		"title": "Google Drive",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Drive_v2.7.372.10.35_apkpure.com.apk",
 		"apkName": "GoogleDrive.apk",
+		"pkg": "com.google.android.apps.docs",
 		"imageUrl": ""
 	},{
 		"title": "Play Services",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Play Services Info_v0.8_apkpure.com.apk",
 		"apkName": "PlayServices.apk",
+		"pkg": "com.weberdo.apps.serviceinfo",
 		"imageUrl": ""
 	},{
 		"title": "Google Home",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Home_v1.26.30.8_apkpure.com.apk",
 		"apkName": "GoogleHome.apk",
+		"pkg": "com.google.android.apps.chromecast.app",
 		"imageUrl": ""
 	},{
 		"title": "YouTube",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "YouTube_v12.45.56_apkpure.com.apk",
 		"apkName": "YouTube.apk",
+		"pkg": "com.google.android.youtube",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Newsstand",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Newsstand_v4.7.0_apkpure.com.apk",
 		"apkName": "GooglePlayNewsstand.apk",
+		"pkg": "com.google.android.apps.magazines",
 		"imageUrl": ""
 	},{
 		"title": "Google Text to speech",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Text to speech_v3.13.3_apkpure.com.apk",
 		"apkName": "GoogleTexttospeech.apk",
+		"pkg": "com.google.android.tts",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Movies TV",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Movies TV_v3.28.14_apkpure.com.apk",
 		"apkName": "GooglePlayMoviesTV.apk",
+		"pkg": "com.google.android.videos",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Music",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Music_v8.6.6626-1.Z_apkpure.com.apk",
 		"apkName": "GooglePlayMusic.apk",
+		"pkg": "com.google.android.music",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Books",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Books_v3.16.1_apkpure.com.apk",
 		"apkName": "GooglePlayBooks.apk",
+		"pkg": "com.google.android.apps.books",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Store",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Store_v8.5.37.W-all [0] [PR] 177498670_apkpure.com.apk",
 		"apkName": "GooglePlayStoret.apk",
+		"pkg": "com.android.vending",
 		"imageUrl": ""
 	},{
 		"title": "Google Play Games",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google Play Games_v5.3.99 (174200566.174200566-038)_apkpure.com.apk",
 		"apkName": "GooglePlayGames.apk",
+		"pkg": "com.google.android.play.games",
 		"imageUrl": ""
 	},{
 		"title": "Gboard the Google Keyboard",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Gboard the Google Keyboard_v6.6.22.171938909-release-armeabi-v7a_apkpure.com.apk",
 		"apkName": "GoogleKeyboard.apk",
+		"pkg": "com.google.android.inputmethod.latin",
 		"imageUrl": ""
 	},
 	{
@@ -113,6 +130,7 @@
 		"content": "Carrier Services_v2.2.067 (3906937-00.phone).cs_apkpure.com.apk",
 		"apkURL": "Carrier Services_v2.2.067 (3906937-00.phone).cs_apkpure.com.apk",
 		"apkName": "CarrierServices.apk",
+		"pkg": "com.google.android.ims",
 		"imageUrl": ""
 	}],
 	"versionInfo": {

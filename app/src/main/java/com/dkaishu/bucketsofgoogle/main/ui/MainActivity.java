@@ -1,5 +1,7 @@
 package com.dkaishu.bucketsofgoogle.main.ui;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 
 import com.dkaishu.bucketsofgoogle.R;
 import com.dkaishu.bucketsofgoogle.base.BaseActivity;
+import com.dkaishu.bucketsofgoogle.main.Broadcast.AppInstallReceiver;
 import com.dkaishu.bucketsofgoogle.main.adapter.BucketAdapter;
 import com.dkaishu.bucketsofgoogle.main.bean.Bucket;
 import com.dkaishu.bucketsofgoogle.main.main.BucketUtils;
@@ -55,9 +58,32 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         adapter = new BucketAdapter(this, apps);
         rvImageFlow.setLayoutManager(new GridLayoutManager(getApplicationContext(), mSpanCount));
-        rvImageFlow.addItemDecoration(new GridSpacingItemDecoration(mSpanCount, 10, true));
+        rvImageFlow.addItemDecoration(new GridSpacingItemDecoration(mSpanCount, 40, true));
         rvImageFlow.setAdapter(adapter);
         queryBucketInfo();
+
+        AppInstallReceiver myReceiver = new AppInstallReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+        myReceiver.setListerner(new AppInstallReceiver.OnAppInstallListerner() {
+            @Override
+            public void onAdded(String pkg) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onRemoved(String pkg) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onReplaced(String pkg) {
+
+            }
+        });
+        registerReceiver(myReceiver, intentFilter);
 
     }
 

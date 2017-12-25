@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.dkaishu.bucketsofgoogle"
         minSdkVersion 16
@@ -10,20 +10,36 @@ android {
         versionName "1.0"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                includeCompileClasspath = true
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//    }
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace("app",
+                        "${defaultConfig.applicationId}_${defaultConfig.versionName}")
+                outputFileName = fileName
+            }
+
         }
     }
 
- /*   //用于生成不同编译类型的包，如debug和release包
+    //用于生成不同编译类型的包，如debug和release包
     buildTypes {
         release {
 //            storeFile file("../yourapp.keystore") //签名证书文件
@@ -37,57 +53,61 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig signingConfigs.release             //使用release证书签名
 
-            applicationVariants.all { variant ->
-                if (variant.buildType.name.equals('release')) {
-                    variant.outputs.each { output ->
-                        def outputFile = output.outputFile
-                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
-                            def fileName = "${defaultConfig.versionCode}.apk"
-                            output.outputFile = new File(outputFile.parent+"/", fileName)
-                        }
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                if (variant.buildType.name.equals('release')) {
+//                    variant.outputs.each { output ->
+//                        def outputFile = output.outputFile
+//                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
+//                            def fileName = "${defaultConfig.versionCode}.apk"
+//                            output.outputFile = new File(outputFile.parent+"/", fileName)
+//                        }
+//                    }
+//                }
+//            }
 
         }
         debug {
             buildConfigField "boolean", "SHOWLOG", "true"       //配置日志开关
 //            versionNameSuffix "-debug"                          //包名后缀为“-debug”
-            zipAlignEnabled false                            //Zipalign优化
+            zipAlignEnabled true                            //Zipalign优化
             shrinkResources false                            // 移除无用的resource文件
-            minifyEnabled false                                 //是否混淆
+            minifyEnabled true                                 //是否混淆
+//            useProguard false //
 //            signingConfig signingConfigs.debug               //使用debug证书签名
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                if (variant.buildType.name.equals('debug')) {
-                    variant.outputs.each { output ->
-                        def outputFile = output.outputFile
-                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
-                            def fileName = "${defaultConfig.versionCode}_debug.apk"
-                            output.outputFile = new File(outputFile.parent +"/", fileName)
-                        }
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                if (variant.buildType.name.equals('debug')) {
+//                    variant.outputs.each { output ->
+//                        def outputFile = output.outputFile
+//                        if (outputFile != null && outputFile.name.endsWith(".apk")) {
+//                            def fileName = "${defaultConfig.versionCode}_debug.apk"
+//                            output.outputFile = new File(outputFile.parent +"/", fileName)
+//                        }
+//                    }
+//                }
+//            }
         }
-    }*/
+    }
 }
 
 
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.jakewharton:butterknife:8.8.1'
+
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:cardview-v7:27.0.2'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.Dkaishu:okhttp3:v1.0.0'
     compile 'com.github.Dkaishu:ScrollTextView:V1.2.0'
 //    compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
 
 }
 
