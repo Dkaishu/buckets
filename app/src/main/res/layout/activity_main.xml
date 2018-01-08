@@ -13,7 +13,11 @@
         scroll_text:ellipsis="false"
         scroll_text:singleLine="true"
         scroll_text:textColor="@android:color/black"
-        scroll_text:textSize="14sp" />
+        scroll_text:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="6dp"
+        />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_image_flow"

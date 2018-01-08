@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         myReceiver.setListerner(new AppInstallReceiver.OnAppInstallListerner() {
             @Override
             public void onAdded(String pkg) {

@@ -8,6 +8,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled = true
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
@@ -63,7 +64,7 @@ android {
 //            versionNameSuffix "-debug"                          //包名后缀为“-debug”
             zipAlignEnabled true                            //Zipalign优化
             shrinkResources false                            // 移除无用的resource文件
-            minifyEnabled true                                 //是否混淆
+            minifyEnabled false                                 //是否混淆
 //            useProguard false //
 //            signingConfig signingConfigs.debug               //使用debug证书签名
 
