@@ -16,8 +16,9 @@ import com.dkaishu.bucketsofgoogle.main.Broadcast.AppInstallReceiver;
 import com.dkaishu.bucketsofgoogle.main.adapter.BucketAdapter;
 import com.dkaishu.bucketsofgoogle.main.bean.Bucket;
 import com.dkaishu.bucketsofgoogle.main.main.BucketUtils;
+import com.dkaishu.bucketsofgoogle.update.VersionUpdateHelper;
 import com.dkaishu.bucketsofgoogle.utils.LogUtil;
-import com.dkaishu.bucketsofgoogle.utils.ToastUtils;
+import com.dkaishu.bucketsofgoogle.utils.Utils;
 import com.dkaishu.scrolltextview.ScrollTextView;
 import com.okhttplib.HttpInfo;
 import com.okhttplib.OkHttpUtil;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.dkaishu.bucketsofgoogle.config.PathConfig.SERVER_URL;
 
 
 public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -98,9 +101,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                     @Override
                     public void onFailure(HttpInfo info) throws IOException {
                         srlImageFlow.setRefreshing(false);
-                        String result = info.getRetDetail();
-                        ToastUtils.showLong(result);
-                        LogUtil.e("ParamForm: " + info.getParamForm() + "\n" + "RetDetail" + result);
+//                        String result = info.getRetDetail();
+//                        ToastUtils.showLong(result);
+//                        LogUtil.e("ParamForm: " + info.getParamForm() + "\n" + "RetDetail" + result);
                     }
 
                     @Override
@@ -125,7 +128,15 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
     private void checkUpdateInfo() {
-
+        if (versionInfo == null || versionInfo.getVersionCode() <= Utils.getVersionCode()) return;
+        if (versionInfo.isForceUpdate()) VersionUpdateHelper.create(this).startForceUpdate("应用需要更新"
+                , versionInfo.getDescribe(), BucketUtils.getURL(SERVER_URL + "image/" + versionInfo.getUpdateUrl())
+                , "bucketsofgoogle_" + versionInfo.getVersionName() + ".apk");
+        else {
+            VersionUpdateHelper.create(this).startOptionalUpdate("发现新版本"
+                    , versionInfo.getDescribe(), BucketUtils.getURL(SERVER_URL + "image/" + versionInfo.getUpdateUrl())
+                    , "bucketsofgoogle_" + versionInfo.getVersionName() + ".apk");
+        }
     }
 
 

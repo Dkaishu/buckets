@@ -32,9 +32,10 @@ public class VersionUpdateHelper implements ServiceConnection {
     public static final int USER_CANCELED = 0;
 
 
-//    private String url = "http://dldir1.qq.com/qqfile/qq/QQ8.9.1/20453/QQ8.9.1.exe";
-    private String url = "http://imtt.dd.qq.com/16891/1A33D1D9F95EE33F4761DC82C474315E.apk?fsname=com.alex.lookwifipassword_3.1.3_49.apk&csr=1bbd";
-    private String fileName = "qq.apk";
+    private String mUrl = "";
+    private String mFileName = "";
+    private String mTitle = "";
+    private String mMessage = "";
 
 
     private CheckCallBack checkCallBack;
@@ -46,7 +47,8 @@ public class VersionUpdateHelper implements ServiceConnection {
     private VersionUpdateHelper(Context context) {
         this.context = context;
     }
-    public static VersionUpdateHelper create(Context context){
+
+    public static VersionUpdateHelper create(Context context) {
         return new VersionUpdateHelper(context);
 
     }
@@ -77,7 +79,7 @@ public class VersionUpdateHelper implements ServiceConnection {
         this.toastInfo = toastInfo;
     }
 
-    public void startForceUpdateVersion() {
+    public void startForceUpdate(String title, String message, String url, String fileName) {
         if (isCanceled)
             return;
         if (isWaitForUpdate() || isWaitForDownload()) {
@@ -85,41 +87,49 @@ public class VersionUpdateHelper implements ServiceConnection {
         }
         if (service == null && context != null) {
             isForceUpdate = true;
+            mTitle = title;
+            mMessage = message;
+            mUrl = url;
+            mFileName = fileName;
             context.bindService(new Intent(context, com.dkaishu.bucketsofgoogle.update.VersionUpdateService.class), this, Context.BIND_AUTO_CREATE);
             LogUtil.d("VersionUpdateService", "bindService");
         }
     }
 
-    public void startOptionalUpdateVersion(){
+    public void startOptionalUpdate(String title, String message, String url, String fileName) {
         if (isCanceled)
             return;
         if (isWaitForUpdate() || isWaitForDownload()) {
             return;
         }
-        if (context!=null ){
+        if (context != null) {
             isForceUpdate = false;
+            mTitle = title;
+            mMessage = message;
+            mUrl = url;
+            mFileName = fileName;
             startUpdateDialog();
         }
 
     }
 
-    private void startUpdateDialog(){
+    private void startUpdateDialog() {
         final AlertDialog.Builder builer = new AlertDialog.Builder(context);
-        builer.setTitle("版本升级");
-        builer.setMessage("版本升级");
+        builer.setTitle(mTitle);
+        builer.setMessage(mMessage);
         //当点确定按钮时从服务器上下载新的apk 然后安装
         builer.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
                 if (NetworkUtil.isWifiConnected(context)) {
-                    if (isForceUpdate){
-                        service.doDownLoadTask(url, fileName);
+                    if (isForceUpdate) {
+                        service.doDownLoadTask(mUrl, mFileName);
 
-                    }else {
+                    } else {
                         Intent intent = new Intent(context, com.dkaishu.bucketsofgoogle.update.VersionUpdateService.class);
-                        intent.putExtra("url", url);
-                        intent.putExtra("saveFileName", fileName);
+                        intent.putExtra("url", mUrl);
+                        intent.putExtra("saveFileName", mFileName);
                         context.startService(intent);
                     }
                 } else {
@@ -178,7 +188,7 @@ public class VersionUpdateHelper implements ServiceConnection {
     private void showNotWifiDownloadDialog() {
         final AlertDialog.Builder builer = new AlertDialog.Builder(context);
         builer.setTitle("下载新版本");
-        builer.setMessage("检查到您的网络处于非wifi状态,下载新版本将消耗一定的流量,是否继续下载?");
+        builer.setMessage("非wifi状态,下载新版本将消耗一定的流量,是否继续下载?");
         builer.setNegativeButton(isForceUpdate ? "退出" : "以后再说", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -186,22 +196,22 @@ public class VersionUpdateHelper implements ServiceConnection {
 //                boolean mustUpdate = service.getVersionUpdateModel().isMustUpgrade();
                 dialog.cancel();
                 if (isForceUpdate) {
+                } else {
+                    unBindService();
                     //Todo tuichu
-                } else unBindService();
-//                if (mustUpdate) {
-//                    MainApplication.getInstance().exitApp();
-//                }
+
+                }
             }
         });
         builer.setPositiveButton("继续下载", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                if (isForceUpdate) service.doDownLoadTask(url, fileName);
+                if (isForceUpdate) service.doDownLoadTask(mUrl, mFileName);
                 else {
                     Intent intent = new Intent(context, com.dkaishu.bucketsofgoogle.update.VersionUpdateService.class);
-                    intent.putExtra("url", url);
-                    intent.putExtra("fileName", fileName);
+                    intent.putExtra("url", mUrl);
+                    intent.putExtra("fileName", mFileName);
                     context.startService(intent);
                 }
             }

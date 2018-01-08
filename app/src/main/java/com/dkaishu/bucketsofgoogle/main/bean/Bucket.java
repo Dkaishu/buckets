@@ -106,23 +106,49 @@ public class Bucket {
 
 
     public static class VersionInfo{
-        private String versionCode;
-        private String forceUpdate;
+        private int versionCode;
+        private String versionName;
+        private String describe;
+        private Boolean forceUpdate;
         private String updateUrl;
 
-        public String getVersionCode() {
+        public String getVersionName() {
+            return versionName;
+        }
+
+        public void setVersionName(String versionName) {
+            this.versionName = versionName;
+        }
+
+        public String getDescribe() {
+            return describe;
+        }
+
+        public void setDescribe(String describe) {
+            this.describe = describe;
+        }
+
+        public int getVersionCode() {
             return versionCode;
         }
 
-        public void setVersionCode(String versionCode) {
+        public void setVersionCode(int versionCode) {
             this.versionCode = versionCode;
         }
 
-        public String getForceUpdate() {
+        public Boolean getForceUpdate() {
             return forceUpdate;
         }
 
-        public void setForceUpdate(String forceUpdate) {
+        public void setForceUpdate(Boolean forceUpdate) {
+            this.forceUpdate = forceUpdate;
+        }
+
+        public boolean isForceUpdate() {
+            return forceUpdate;
+        }
+
+        public void setForceUpdate(boolean forceUpdate) {
             this.forceUpdate = forceUpdate;
         }
 

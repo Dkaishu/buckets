@@ -26,6 +26,7 @@ import com.okhttplib.callback.ProgressCallback;
 import java.io.File;
 import java.util.List;
 
+import static com.dkaishu.bucketsofgoogle.config.PathConfig.SERVER_URL;
 import static com.dkaishu.bucketsofgoogle.utils.FileUtils.installApk;
 
 /**
@@ -35,7 +36,6 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final String TAG = "BucketAdapter";
     private List<Bucket.App> list;
     private Context mContext;
-    private String serverURL = "http://p18i0dv0b.bkt.clouddn.com/";
 
     public BucketAdapter(Context mContext, List<Bucket.App> list) {
         this.list = list;
@@ -52,14 +52,15 @@ public class BucketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final VH vh = (VH) holder;
         vh.contentTv.setText(list.get(position).getTitle());
-        String imageURL = BucketUtils.getURL(serverURL +"image/"+ list.get(position).getImageUrl());
+        String imageURL = BucketUtils.getURL(SERVER_URL + "image/" + list.get(position).getImageUrl());
+        LogUtil.e("imageURL : position:  " + position + "****" + imageURL);
         Glide.with(mContext).load(imageURL).into(vh.iv);
         boolean isInstalled = FileUtils.isAppInstalled(mContext, list.get(position).getPkg());
         Glide.with(mContext).load(isInstalled ? R.drawable.ic_download_done : R.drawable.ic_download_start).into(vh.indicater);
         vh.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String apkURL = BucketUtils.getURL(serverURL +"app/"+ list.get(position).getApkURL());
+                String apkURL = BucketUtils.getURL(SERVER_URL + "app/" + list.get(position).getApkURL());
                 if (vh.fileInfo == null) {
                     Log.e(TAG, list.get(position).getImageUrl());
                     Log.e(TAG, apkURL);

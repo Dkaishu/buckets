@@ -3,6 +3,8 @@ package com.dkaishu.bucketsofgoogle.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -93,4 +95,37 @@ public final class Utils {
             sTopActivityWeakRef = new WeakReference<>(activity);
         }
     }
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本号
+     */
+    public static int getVersionCode() {
+        try {
+            PackageManager manager = sApplication.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(sApplication.getPackageName(), 0);
+            return info.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本名称
+     */
+    public static String getVersionName() {
+        try {
+            PackageManager manager = sApplication.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(sApplication.getPackageName(), 0);
+            return info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "获取版本信息失败";
+        }
+    }
+
 }

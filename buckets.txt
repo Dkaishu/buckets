@@ -1,9 +1,9 @@
 {
 	"tips": [{
-		"tipString": "Rufus"
+		"tipString": "Rufus 阿萨德哈哈独爱adhi啊偶很对啊阿迪豪华大的hi奥后"
 	},
 	{
-		"tipString": "Marty"
+		"tipString": "Marty 等哈数据库和大家看啊哈滴哦啊好撒谎滴哦啊啊上帝哦啊"
 	}],
 	"apps": [{
 		"title": "Android System WebView",
@@ -18,14 +18,14 @@
 		"apkURL": "Google Street View_v2.0.0.178033767_apkpure.com.apk",
 		"apkName": "GoogleStreet.apk",
 		"pkg": "com.google.android.street",
-		"imageUrl": ""
+		"imageUrl": "Google Street.png"
 	},{
 		"title": "Google TalkBack",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
 		"apkURL": "Google TalkBack_v5.2.1_apkpure.com.apk",
 		"apkName": "GoogleTalkBack.apk",
 		"pkg": "com.google.android.marvin.talkback",
-		"imageUrl": "Google Street.png"
+		"imageUrl": "Google TalkBack.png"
 	},{
 		"title": "Google Chrome",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
@@ -53,7 +53,7 @@
 		"apkURL": "Play Services Info_v0.8_apkpure.com.apk",
 		"apkName": "PlayServices.apk",
 		"pkg": "com.weberdo.apps.serviceinfo",
-		"imageUrl": ""
+		"imageUrl": "Play Services.png"
 	},{
 		"title": "Google Home",
 		"content": "Android System WebView_v61.0.3163.98_apkpure.com.apk",
@@ -135,6 +135,8 @@
 	}],
 	"versionInfo": {
 		"versionCode": "0",
+		"versionName": "1.0.0",
+		"describe": "无",
 		"forceUpdate": false,
 		"updateUrl": ""
 	}
